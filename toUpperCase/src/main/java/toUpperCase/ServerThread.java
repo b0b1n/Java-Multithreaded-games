@@ -30,8 +30,9 @@ public class ServerThread implements Runnable {
 			String message = ""; // Initial value for the message so we can enter the while loop
 			while (!(message.equalsIgnoreCase("exit"))) { // test if message is equal to exit to quit the game
 				message = in_socket.readLine(); // get the text written by the client
-				out_socket.println(message + ".toUpperCase() is : " + message.toUpperCase()); // output the result to
-																								// the client
+				out_socket.println(" '" + message + "'  in upper case is : " + message.toUpperCase()); // output the
+																										// result to the
+																										// client
 			}
 
 			// this line will be reached when the game is exited
