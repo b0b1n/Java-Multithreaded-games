@@ -2,7 +2,7 @@
 
 Building multi-threaded games where multiple clients can connect to the server at the same time using Sockets in Java.
 
-## First game : toUpperCase
+##  First game : toUpperCase 
 A game where you Input any text and the server responds with the same text in upperCase.
 You can exit the game by typing 'exit' (not case sensitive)
 ### ------ Steps to launch the game :
