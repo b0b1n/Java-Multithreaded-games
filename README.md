@@ -18,3 +18,7 @@ You can exit the game by typing 'exit' (not case sensitive)
 
 - #### 4.After the client has disconnected (server side) 
 ![ Server interface when a client has disconnected  ](https://github.com/b0b1n/Multithreaded-games/blob/master/toUpperCase/images/Client_disconnect.png) 
+
+##  Second game : HashMyMessage 
+A game where you Input any text and the server responds with your input hashed.
+You can exit the game by typing 'exit' (not case sensitive)
