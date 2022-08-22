@@ -37,7 +37,7 @@ public class ServerThread implements Runnable {
 				messageDigest.update(message.getBytes()); // get the text written by the client
 				BigInteger bigInt = new BigInteger(1, messageDigest.digest());
 				hashed = bigInt.toString(16);
-				out_socket.println(" '" + message + "' hashed is : " + hashed);
+				out_socket.println(" '" + message + "' hashed is : " + hashed+"\n");
 			}
 
 			// this line will be reached when the game is exited

@@ -1,6 +1,9 @@
 package Sockets.HashMyMessage;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -24,8 +27,8 @@ public class Client {
 
 		String[] mustNotEqual = { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7",
 				"COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
-		
-		char[] mustNotContain = {'}','{', '&','#','%','<', '>', ':', '"', '/', '\\', '|', '?', '*' };
+
+		char[] mustNotContain = { '}', '{', '&', '#', '%', '<', '>', ':', '"', '/', '\\', '|', '?', '*' };
 
 		while (!message.equalsIgnoreCase("EXIT")) {// test if message is equal to exit to quit the game
 			System.out.print("  Enter your text:   ");
@@ -38,22 +41,30 @@ public class Client {
 			 */
 
 			/// Create a file that will contain the hashed message
-			PrintWriter myWriter;
-			if(Arrays.asList(mustNotEqual).contains(message) || hasAnyCaracters(message, mustNotContain)){
-				myWriter = new PrintWriter("hashed messages/__" + message + "__hashed.txt", "UTF-16");				
-			}else {				
-				myWriter = new PrintWriter("hashed messages/__" + message + "__hashed.txt", "UTF-16");
-			}
-			out_socket.println(message);// send user's input to the server
-			message = in_socket.readLine(); // receive server's response
 
-			/*
-			 * Write in the file the message from the server that contains the hashed
-			 * message
-			 */
-			myWriter.println(message);
-			myWriter.close();
-			System.out.println("Successfully wrote to the file.");
+			PrintWriter writer ;
+			PrintWriter  myWriter = null;
+			if (Arrays.asList(mustNotEqual).contains(message) || hasAnyCaracters(message, mustNotContain) ) {
+				writer = new PrintWriter("hashed messages/WITH PROHIBITED CARACTERS.txt", "UTF-8");
+				out_socket.println(message);// send user's input to the server
+				message = in_socket.readLine(); // receive server's response
+				writer.println(message);
+				System.out.println("added to the file : 'WITH PROHIBITED CARACTERS.txt' in the directory 'hashed messages' ");
+				writer.close();
+			} else {
+				myWriter = new PrintWriter("hashed messages/__" + message + "__hashed.txt", "UTF-16");
+				out_socket.println(message);// send user's input to the server
+				String fname = "__" + message + "__hashed.txt";
+				message = in_socket.readLine(); // receive server's response
+
+				/*
+				 * Write in the file the message from the server that contains the hashed
+				 * message
+				 */
+				System.out.println("Successfully wrote to the file '"+ fname+"'");
+				myWriter.println(message);
+				myWriter.close();
+			}
 		}
 
 		socket.close();
@@ -76,7 +87,6 @@ public class Client {
 			new Client();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 }
